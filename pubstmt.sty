@@ -1,0 +1,140 @@
+%%
+%% This is file `pubstmt.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% pubstmt.dtx  (with options: `pubstmt')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2017 by Thai Son Hoang
+%% <T dot S dot Hoang at ecs dot soton dot ac dot uk>
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2008/05/04 or later.
+%% 
+%% This work has the LPPL maintenance status "author-maintained".
+%% 
+%% The Current Maintainer of this work is T. S. Hoang.
+%% 
+\NeedsTeXFormat{LaTeX2e}\relax
+\ProvidesPackage{pubstmt}
+    [2017/11/17 v1.0 Package for typesetting information linking to publisher's website]
+
+%%%%% BEGIN Package loading %%%%%
+\RequirePackage{fancyhdr}
+\RequirePackage{url}
+\RequirePackage{hyperref}
+%%%%% END Package loading %%%%%
+
+
+%%%%% BEGIN Internal Helper Macros %%%%%
+% ========================
+% Publisher's DOI number
+\newcommand{\pubstmt@doi}{DOI number}
+
+% (public) Publisher's DOI number
+\newcommand{\pubstmtdoi}{\pubstmt@doi}
+
+% Command to (re-)set the publication's DOI number.
+%
+% Arguments:
+% 1. The DOI number
+%
+% Usage:
+% - \pubstmtSetDOI{10.1007/978-3-319-68499-4_5} will set the
+% publication DOI number accordingly.
+\newcommand{\pubstmtSetDOI}[1]{%
+  \renewcommand{\pubstmt@doi}{#1}%
+}%
+
+% Publication's book title
+\newcommand{\pubstmt@booktitle}{Book title}
+
+% (public) Publication's book title
+\newcommand{\pubstmtbooktitle}{\pubstmt@booktitle}
+
+% Command to (re-)set the publication's book title.
+%
+% Arguments:
+% 1. The book title
+%
+% Usage:
+% - \pubstmtSetBookTitle{CONF2017: Proceedings of
+% some conference} will set the publication book title to
+% "CONF2017: Proceedings of some conference".
+\newcommand{\pubstmtSetBookTitle}[1]{%
+  \renewcommand{\pubstmt@booktitle}{#1}
+}%
+
+% Publication's publisher
+\newcommand{\pubstmt@publisher}{Publisher}
+
+% (public) Publication's publisher
+\newcommand{\pubstmtpublisher}{\pubstmt@publisher}
+
+% Command to (re-)set the publication's publisher.
+%
+% Arguments:
+% 1. The publisher
+%
+% Usage:
+% - \pubstmtSetPublisher{Springer} will set the publication's
+% publisher to "Springer"
+\newcommand{\pubstmtSetPublisher}[1]{%
+  \renewcommand{\pubstmt@publisher}{#1}
+}%
+
+% Publication's publisher
+\newcommand{\pubstmt@statement}{%
+  \vspace{-10ex}
+  The original publication is available at \url{http://doi.org/\pubstmt@doi}\\%
+  In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher%
+}%
+
+% Command to (re-)set the publisher statement.
+%
+% Arguments:
+% 1. The statement
+%
+% Usage:
+% - \pubstmtSetStatement{Some statement} will set the
+% publisher statement accordingly.
+\newcommand{\pubstmtSetStatement}[1]{%
+  \renewcommand{\pubstmt@statement}{#1}
+}%
+
+
+%%%%% END Internal Helper Macros %%%%%
+
+\fancypagestyle{pubstmt}
+{
+  \fancyhead{} % Clear all header fields
+  \fancyhead[C]{%
+    \pubstmt@statement
+   }%
+  \renewcommand{\headrulewidth}{0 pt} % No header rule
+}
+
+%%%%% BEGIN Declaration of options %%%%%
+\DeclareOption{llncs}{%
+}%
+
+%%%%% END Declaration of options %%%%%
+
+%%%%% BEGIN Execution of options %%%%%
+
+\ProcessOptions
+%%%%% END Execution of options %%%%%
+
+\endinput
+%%
+%% End of file `pubstmt.sty'.

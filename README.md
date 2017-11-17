@@ -1,2 +1,2 @@
-# publisherlink
-This repository contains a LaTeX package for typesetting information linking to the publisher website
+# pubstmt
+This repository contains a LaTeX package for typesetting the publisher statement (information linking a publication to the publisher's website).

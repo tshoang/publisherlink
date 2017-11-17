@@ -1,0 +1,59 @@
+\usepackage{pubstmt}
+\pubstmtSetDOI{10.1007/978-3-319-68499-4_5}
+\pubstmtSetBookTitle{CONF2017: Proceedings of some conference}
+\pubstmtSetPublisher{Springer}
+
+\usepackage{lipsum}
+
+\begin{document}
+\title{Sample document}
+\author{Thai Son Hoang}
+\institute{ECS, University of Southampton, Southampton, U.K.}
+\maketitle
+
+We can set the necessary information regarding the publication.
+Typically this is done at the beginning after loading the \verb|pubstmt| package.
+\begin{verbatim}
+\pubstmtSetDOI{10.1007/978-3-319-68499-4_5}
+\pubstmtSetBookTitle{CONF2017: Some conference}
+\pubstmtSetPublisher{Springer}
+\end{verbatim}
+To typesetting the publisher statement, we just need to set the page
+style to use \verb|pubstmt|.
+\begin{verbatim}
+\thispagestyle{pubstmt}
+\end{verbatim}
+\thispagestyle{pubstmt}
+
+For illustration purpose, we fill the text with some random text.
+\begin{quote}
+  \lipsum
+\end{quote}
+
+\section{Reset the Statement}
+\label{sec:reset-statement}
+
+We now try to reset the publisher statement to some text.
+\begin{verbatim}
+\pubstmtSetStatement{%
+  Online at \url{\pubstmtdoi} from \pubstmtpublisher. This is a part of
+  \pubstmtbooktitle.
+}
+\end{verbatim}
+\pubstmtSetStatement{%
+  Online at \url{\pubstmtdoi} from \pubstmtpublisher. This is a part of
+  \pubstmtbooktitle.
+}
+ We set the page style to \verb|pubstmt| again.
+\begin{verbatim}
+\thispagestyle{pubstmt}
+\end{verbatim}
+\thispagestyle{pubstmt}
+The new statement appears as this page header.
+
+For illustration purpose, we fill the text with some random text.
+\begin{quote}
+  \lipsum
+\end{quote}
+
+\end{document}

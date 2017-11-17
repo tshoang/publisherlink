@@ -1,0 +1,406 @@
+% \iffalse meta-comment
+% 
+% pubstmt.ins
+% 
+% Copyright (C) 2017 by Thai Son Hoang
+% <T dot S dot Hoang at ecs dot soton dot ac dot uk>
+% --------------------------------------------------------------------
+% 
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+% 
+%      http://www.latex-project.org/lppl.txt
+% 
+% and version 1.3c or later is part of all distributions of LaTeX 
+% version 2008/05/04 or later.
+% 
+% This work has the LPPL maintenance status "author-maintained".
+% 
+% The Current Maintainer of this work is T.S. Hoang.
+%
+% This work consists of the files pubstmt.dtx, pubstmt.ins,
+% the derived file pubstmt.sty, the generated documentation
+% pubstmt.pdf, and some sample documents.
+% 
+% \fi
+% 
+% \iffalse
+%<pubstmt>\NeedsTeXFormat{LaTeX2e}\relax
+%<pubstmt>\ProvidesPackage{pubstmt}
+%<pubstmt>    [2017/11/17 v1.0 Package for typesetting information linking to publisher's website] 
+% 
+%<*driver> 
+\documentclass[a4paper]{ltxdoc}
+\usepackage{pubstmt}
+\EnableCrossrefs
+% ^^A\CodelineIndex
+\PageIndex
+\RecordChanges
+
+\begin{document}
+\DocInput{pubstmt.dtx}
+\end{document}
+%</driver>
+% \fi
+% 
+% \CheckSum{56}
+% 
+% \CharacterTable
+% {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+% Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+% Digits        \0\1\2\3\4\5\6\7\8\9
+% Exclamation   \!     Double quote  \"     Hash (number) \#
+% Dollar        \$     Percent       \%     Ampersand     \&
+% Acute accent  \'     Left paren    \(     Right paren   \)
+% Asterisk      \*     Plus          \+     Comma         \,
+% Minus         \-     Point         \.     Solidus       \/
+% Colon         \:     Semicolon     \;     Less than     \<
+% Equals        \=     Greater than  \>     Question mark \?
+% Commercial at \@     Left bracket  \[     Backslash     \\
+% Right bracket \]     Circumflex    \^     Underscore    \_
+% Grave accent  \`     Left brace    \{     Vertical bar  \|
+% Right brace   \}     Tilde         \~}
+% 
+% 
+% \changes{v1.0}{2017/11/17}{Initial version}
+% 
+% \GetFileInfo{pubstmt.sty}
+% 
+% \DoNotIndex{\\}
+% \DoNotIndex{\DeclareOption}
+% \DoNotIndex{\ProcessOptions}
+% \DoNotIndex{\RequirePackage}
+% \DoNotIndex{\arabic}
+% \DoNotIndex{\begin}
+% \DoNotIndex{\csname,\csuse}
+% \DoNotIndex{\def,\do,\dolistloop}
+% \DoNotIndex{\end,\endcsname,\expandafter}
+% \DoNotIndex{\hline}
+% \DoNotIndex{\ifstrequal,\iftoggle,\item}
+% \DoNotIndex{\label,\labelformat,\listadd}
+% \DoNotIndex{\medskip}
+% \DoNotIndex{\newcommand,\newcounter,\newenvironment,\newtoggle,\nomenclature}
+% \DoNotIndex{\quad}
+% \DoNotIndex{\renewcommand,\renewenvironment,\ref,\refstepcounter}
+% \DoNotIndex{\setcounter,\small}
+% \DoNotIndex{\textsf,\textwidth,\togglefalse,\toggletrue}
+% \DoNotIndex{\value}
+% \DoNotIndex{\xspace,\vspace,\hspace}
+% \DoNotIndex{\copyright,\url}
+%
+% \title{The \textsf{pubstmt} package\thanks{This document
+% corresponds to \textsf{pubstmt}~\fileversion, dated~\filedate.}}
+% \author{Thai Son Hoang \\ ECS, University of Southampton \\ \texttt{<T dot S dot Hoang at ecs dot
+% soton dot ac dot uk>}}
+% \date{November 16, 2017}
+% 
+% \maketitle
+% 
+% ^^A %%%%% Abstract %%%%%
+% \begin{abstract}
+%   This package provides utilities for typesetting information
+%   linking to publisher website.  It was developed at the University
+%   of Southampton.
+% \end{abstract}
+% 
+% ^^A %%%%% Table of contents %%%%%
+% \tableofcontents
+% 
+% ^^A %%%%% Introduction %%%%%
+% \section{Introduction}
+% 
+% This package was developed in order to ease the typesetting
+% information linking to publisher website (the publisher's statement).
+% 
+% ^^A %%%%% Usage %%%%%%
+% \section{Usage}
+% 
+% Just like any other package, you need to request this package with a
+% |\usepackage| command in the preamble.
+%
+% So in the simpler case, one just types
+% 
+% \indent |\usepackage{pubstmt}|
+%
+% \noindent to load the package.  The information related to the
+% publication, e.g., publisher's DOI number, its book title and
+% publisher's name can be set afterwards.
+% \begin{verbatim}
+% \pubstmtSetDOI{10.1007/978-3-319-68499-4_5}
+% \pubstmtSetBookTitle{CONF2017: Proceedings of some conference}
+% \pubstmtSetPublisher{Springer}
+% \end{verbatim}
+% The publisher statement can be typeset on any page using |\thispagestyle{pubstmt}|.
+% \StopEventually{
+% \PrintChanges
+% \PrintIndex
+% }
+%   
+% ^^A %%%%% Implementation %%%%%
+% \section{Implementation}
+%
+% \subsection{Package Loading}
+% \label{sec:package-loading}
+% The implementation is quite straightforward.  Our implementation is
+% based on the |fancyhdr| package.  We also require |url| package for
+% typesetting the URLs.
+% 
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>
+%<pubstmt>%%%%% BEGIN Package loading %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\RequirePackage{fancyhdr}
+\RequirePackage{url}
+\RequirePackage{hyperref}
+%    \end{macrocode}
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>%%%%% END Package loading %%%%%
+%<pubstmt>
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \subsection{Internal Helper Macros}
+% \label{sec:intern-help-macr}
+% We define with some internal helper macros that can be (re-)set by
+% the users or package options.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>
+%<pubstmt>%%%%% BEGIN Internal Helper Macros %%%%%
+%<pubstmt>% ========================
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \begin{macro}{\pubstmt@doi}
+%   \changes{v1.0}{2017/11/16}{Initial version}
+%   We define a macro for the publisher's DOI number corresponding to
+%   the publication.  The users are expected to set this DOI number
+%   using the command |\pubstmtSetDOI| (defined later).
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>% Publisher's DOI number
+% \fi ^^A END Produce comments only in the resulting style file
+%    \begin{macrocode}
+\newcommand{\pubstmt@doi}{DOI number}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pubstmtdoi}
+%   \changes{v1.0}{2017/11/17}{Initial version}
+%   For convenient, we make a public command to allow the users to
+%   directly use the publisher's DOI number, for example, when
+%   defining his own publisher statement using |pubstmtSetStatement|
+%   (defined later).
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>% (public) Publisher's DOI number
+% \fi ^^A END Produce comments only in the resulting style file
+%    \begin{macrocode}
+\newcommand{\pubstmtdoi}{\pubstmt@doi}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pubstmtSetDOI}
+%   \changes{v1.0}{2017/11/16}{Initial version}
+%   We define the command to (re-)set the DOI number as follows.
+%    \begin{macrocode}
+%<pubstmt>% Command to (re-)set the publication's DOI number.
+%<pubstmt>%
+%<pubstmt>% Arguments:
+%<pubstmt>% 1. The DOI number
+%<pubstmt>%
+%<pubstmt>% Usage:
+%<pubstmt>% - \pubstmtSetDOI{10.1007/978-3-319-68499-4_5} will set the
+%<pubstmt>% publication DOI number accordingly.
+\newcommand{\pubstmtSetDOI}[1]{%
+  \renewcommand{\pubstmt@doi}{#1}%
+}%
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pubstmt@booktitle}
+%   \changes{v1.0}{2017/11/16}{Initial version}
+%   Similarly we define a macro for the book title of the publication.
+%   The users are expected to set this book title using the command
+%   |\pubstmtSetBookTitle| (defined later).
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>% Publication's book title
+% \fi ^^A END Produce comments only in the resulting style file
+%    \begin{macrocode}
+\newcommand{\pubstmt@booktitle}{Book title}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pubstmtbooktitle}
+%   \changes{v1.0}{2017/11/17}{Initial version}
+%   For convenient, we make a public command to allow the users to
+%   directly use the publication's book title, for example, when
+%   defining his own publisher statement using |pubstmtSetStatement|
+%   (defined later).
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>% (public) Publication's book title
+% \fi ^^A END Produce comments only in the resulting style file
+%    \begin{macrocode}
+\newcommand{\pubstmtbooktitle}{\pubstmt@booktitle}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pubstmtSetBookTitle}
+%   \changes{v1.0}{2017/11/16}{Initial version}
+%   The macro for setting the book title is defined as follows.
+%    \begin{macrocode}
+%<pubstmt>% Command to (re-)set the publication's book title.
+%<pubstmt>%
+%<pubstmt>% Arguments:
+%<pubstmt>% 1. The book title
+%<pubstmt>%
+%<pubstmt>% Usage:
+%<pubstmt>% - \pubstmtSetBookTitle{CONF2017: Proceedings of
+%<pubstmt>% some conference} will set the publication book title to
+%<pubstmt>% "CONF2017: Proceedings of some conference". 
+\newcommand{\pubstmtSetBookTitle}[1]{%
+  \renewcommand{\pubstmt@booktitle}{#1}
+}%
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pubstmt@publisher}
+%   \changes{v1.0}{2017/11/16}{Initial version}
+%   Similarly we define a macro for publisher of the publication.
+%   The users are expected to set this publisher using the command
+%   |\pubstmtSetPublisher| (defined later).
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>% Publication's publisher
+% \fi ^^A END Produce comments only in the resulting style file
+%    \begin{macrocode}
+\newcommand{\pubstmt@publisher}{Publisher}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pubstmtpublisher}
+%   \changes{v1.0}{2017/11/17}{Initial version}
+%   For convenient, we make a public command to allow the users to
+%   directly use the publication's publisher, for example, when
+%   defining his own publisher statement using |pubstmtSetStatement|
+%   (defined later).
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>% (public) Publication's publisher
+% \fi ^^A END Produce comments only in the resulting style file
+%    \begin{macrocode}
+\newcommand{\pubstmtpublisher}{\pubstmt@publisher}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pubstmtSetPublisher}
+%   \changes{v1.0}{2017/11/16}{Initial version}
+%   The macro for setting the publisher is defined as follows.
+%    \begin{macrocode}
+%<pubstmt>% Command to (re-)set the publication's publisher.
+%<pubstmt>%
+%<pubstmt>% Arguments:
+%<pubstmt>% 1. The publisher
+%<pubstmt>%
+%<pubstmt>% Usage:
+%<pubstmt>% - \pubstmtSetPublisher{Springer} will set the publication's
+%<pubstmt>% publisher to "Springer"
+\newcommand{\pubstmtSetPublisher}[1]{%
+  \renewcommand{\pubstmt@publisher}{#1}
+}%
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pubstmt@statement}
+%   \changes{v1.0}{2017/11/16}{Initial version}
+%   Finally, we define the command for publisher's statement. By
+%   default this is the Springer's style statement. The users can
+%   (re-)set the statement using |\pubstmtSetStatement| (defined
+%   later).
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>% Publication's publisher
+% \fi ^^A END Produce comments only in the resulting style file
+%    \begin{macrocode}
+\newcommand{\pubstmt@statement}{%
+  \vspace{-10ex}
+  The original publication is available at \url{http://doi.org/\pubstmt@doi}\\%
+  In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher%
+}%
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pubstmtSetStatement}
+%   \changes{v1.0}{2017/11/16}{Initial version}
+%   The macro for setting the publisher statement is defined as follows.
+%    \begin{macrocode}
+%<pubstmt>% Command to (re-)set the publisher statement.
+%<pubstmt>%
+%<pubstmt>% Arguments:
+%<pubstmt>% 1. The statement
+%<pubstmt>%
+%<pubstmt>% Usage:
+%<pubstmt>% - \pubstmtSetStatement{Some statement} will set the 
+%<pubstmt>% publisher statement accordingly.
+\newcommand{\pubstmtSetStatement}[1]{%
+  \renewcommand{\pubstmt@statement}{#1}
+}%
+
+%    \end{macrocode}
+% \end{macro}
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>
+%<pubstmt>%%%%% END Internal Helper Macros %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+%
+% \subsection{The \textrm{pubstmt} page style}
+% \label{sec:pubstmt-page-style}
+% We define a new fancy page style called |pubstmt| as follows.
+% 
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*pubstmt>
+
+% *pubstmt* fancy page style.  With this page style, all header fields
+% is clear and the information statement about the publisher website
+% is inserted as the centre field of the header.
+%
+% Usage:
+% - Typically for the first page of the article, \thispagestyle{pubstmt}
+%</pubstmt>
+% \fi^^A END Produce comments only in the resulting style file
+%    \begin{macrocode}
+\fancypagestyle{pubstmt}
+{
+  \fancyhead{} % Clear all header fields
+  \fancyhead[C]{%
+    \pubstmt@statement
+   }%
+  \renewcommand{\headrulewidth}{0 pt} % No header rule
+}
+
+%%%%% BEGIN Declaration of options %%%%%
+% ========================
+\DeclareOption{llncs}{%
+}%
+
+%%%%% END Declaration of options %%%%%
+% ========================
+
+%%%%% BEGIN Execution of options %%%%%
+% ========================
+
+\ProcessOptions
+%%%%% END Execution of options %%%%%
+
+%    \end{macrocode}
+%
+% \Finale
+\endinput
