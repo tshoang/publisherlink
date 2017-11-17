@@ -45,7 +45,7 @@
 %</driver>
 % \fi
 % 
-% \CheckSum{56}
+% \CheckSum{0}
 % 
 % \CharacterTable
 % {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -65,6 +65,8 @@
 % 
 % 
 % \changes{v1.0}{2017/11/17}{Initial version}
+% \changes{v1.1}{2017/11/18}{Added package options for publishers and
+% book series, journals}
 % 
 % \GetFileInfo{pubstmt.sty}
 % 
@@ -318,6 +320,55 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\pubstmt@year}
+%   \changes{v1.1}{2017/11/18}{Initial version}
+%   Similarly we define a macro for publication's published year.
+%   The users are expected to set this publisher using the command
+%   |\pubstmtSetYear| (defined later).
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>% Publication's published year
+% \fi ^^A END Produce comments only in the resulting style file
+%    \begin{macrocode}
+\newcommand{\pubstmt@year}{Year}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pubstmtyear}
+%   \changes{v1.1}{2017/11/18}{Initial version}
+%   For convenient, we make a public command to allow the users to
+%   directly use the publication's published year, for example, when
+%   defining his own publisher statement using |pubstmtSetStatement|
+%   (defined later).
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>% (public) Publication's published year
+% \fi ^^A END Produce comments only in the resulting style file
+%    \begin{macrocode}
+\newcommand{\pubstmtyear}{\pubstmt@year}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pubstmtSetYear}
+%   \changes{v1.1}{2017/11/18}{Initial version}
+%   The macro for setting the publication's published year is defined
+%   as follows.
+%    \begin{macrocode}
+%<pubstmt>% Command to (re-)set the publication's published year.
+%<pubstmt>%
+%<pubstmt>% Arguments:
+%<pubstmt>% 1. The publication's published year
+%<pubstmt>%
+%<pubstmt>% Usage:
+%<pubstmt>% - \pubstmtSetYear{2017} will set the publication's
+%<pubstmt>% published year to "2017"
+\newcommand{\pubstmtSetYear}[1]{%
+  \renewcommand{\pubstmt@year}{#1}
+}%
+
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\pubstmt@statement}
 %   \changes{v1.0}{2017/11/16}{Initial version}
 %   Finally, we define the command for publisher's statement. By
@@ -331,7 +382,7 @@
 \newcommand{\pubstmt@statement}{%
   \vspace{-10ex}
   The original publication is available at \url{http://doi.org/\pubstmt@doi}\\%
-  In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher%
+  In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher{} \pubstmt@year%
 }%
 
 %    \end{macrocode}
@@ -361,7 +412,7 @@
 % \fi ^^A END Produce comments only in the resulting style file
 %
 %
-% \subsection{The \textrm{pubstmt} page style}
+% \subsection{The \textrm{pubstmt} Page Style}
 % \label{sec:pubstmt-page-style}
 % We define a new fancy page style called |pubstmt| as follows.
 % 
@@ -386,21 +437,76 @@
   \renewcommand{\headrulewidth}{0 pt} % No header rule
 }
 
-%%%%% BEGIN Declaration of options %%%%%
-% ========================
-\DeclareOption{llncs}{%
+%    \end{macrocode}
+%
+% \subsection{Package Options}
+% \label{sec:package-options}
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>
+%<pubstmt>%%%%% BEGIN Declaration of options %%%%%
+%<pubstmt>% ========================
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% We define some package options to redefine the publisher statement
+% accordingly to the publisher's requirements. We define some standard
+% statements according to publishers, e.g., Springer (the default), Elsevier.
+%
+%    \begin{macrocode}
+\DeclareOption{Springer}{%
+  \renewcommand{\pubstmt@statement}{%
+    \vspace{-10ex}%
+    The original publication is available at \url{http://doi.org/\pubstmt@doi}\\%
+    In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher{} \pubstmt@year%
+  }%
 }%
 
-%%%%% END Declaration of options %%%%%
-% ========================
-
-%%%%% BEGIN Execution of options %%%%%
-% ========================
-
-\ProcessOptions
-%%%%% END Execution of options %%%%%
-
+\DeclareOption{Elsevier}{%
+  \renewcommand{\pubstmt@statement}{%
+    \vspace{-20ex}%
+    The original publication is available at \url{http://doi.org/\pubstmt@doi}\\%
+    In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher{} \pubstmt@year. This
+    manuscript version is made available under the CC-BY-NC-ND 4.0
+    license \url{http://creativecommons.org/licenses/by-nc-nd/4.0/}%
+  }%
+}%
 %    \end{macrocode}
+%
+% We define some statement for conference proceedings series
+% and journals.  They are just redefined from the corresponding publishers.
+%    \begin{macrocode}
+\DeclareOption{LNCS}{% LNCS series
+  \ExecuteOptions{Springer}
+}%
+
+\DeclareOption{SCP}{% Science of Computer Programming
+  \ExecuteOptions{Elsevier}
+}%
+%    \end{macrocode}
+
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>
+%<pubstmt>%%%%% END Declaration of options %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+%
+% Finally, we process all the options.
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>
+%<pubstmt>%%%%% BEGIN Execution of options %%%%%
+%<pubstmt>% ========================
+% \fi ^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\ProcessOptions
+%    \end{macrocode}
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<pubstmt>
+%<pubstmt>%%%%% END Execution of options %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
 %
 % \Finale
 \endinput

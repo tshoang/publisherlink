@@ -93,11 +93,29 @@
   \renewcommand{\pubstmt@publisher}{#1}
 }%
 
+% Publication's published year
+\newcommand{\pubstmt@year}{Year}
+
+% (public) Publication's published year
+\newcommand{\pubstmtyear}{\pubstmt@year}
+
+% Command to (re-)set the publication's published year.
+%
+% Arguments:
+% 1. The publication's published year
+%
+% Usage:
+% - \pubstmtSetYear{2017} will set the publication's
+% published year to "2017"
+\newcommand{\pubstmtSetYear}[1]{%
+  \renewcommand{\pubstmt@year}{#1}
+}%
+
 % Publication's publisher
 \newcommand{\pubstmt@statement}{%
   \vspace{-10ex}
   The original publication is available at \url{http://doi.org/\pubstmt@doi}\\%
-  In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher%
+  In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher{} \pubstmt@year%
 }%
 
 % Command to (re-)set the publisher statement.
@@ -124,17 +142,42 @@
   \renewcommand{\headrulewidth}{0 pt} % No header rule
 }
 
+
 %%%%% BEGIN Declaration of options %%%%%
-\DeclareOption{llncs}{%
+% ========================
+\DeclareOption{Springer}{%
+  \renewcommand{\pubstmt@statement}{%
+    \vspace{-10ex}%
+    The original publication is available at \url{http://doi.org/\pubstmt@doi}\\%
+    In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher{} \pubstmt@year%
+  }%
 }%
+
+\DeclareOption{Elsevier}{%
+  \renewcommand{\pubstmt@statement}{%
+    \vspace{-20ex}%
+    The original publication is available at \url{http://doi.org/\pubstmt@doi}\\%
+    In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher{} \pubstmt@year. This
+    manuscript version is made available under the CC-BY-NC-ND 4.0
+    license \url{http://creativecommons.org/licenses/by-nc-nd/4.0/}%
+  }%
+}%
+\DeclareOption{LNCS}{% LNCS series
+  \ExecuteOptions{Springer}
+}%
+
+\DeclareOption{SCP}{% Science of Computer Programming
+  \ExecuteOptions{Elsevier}
+}%
+
 
 %%%%% END Declaration of options %%%%%
 
 %%%%% BEGIN Execution of options %%%%%
-
+% ========================
 \ProcessOptions
-%%%%% END Execution of options %%%%%
 
+%%%%% END Execution of options %%%%%
 \endinput
 %%
 %% End of file `pubstmt.sty'.

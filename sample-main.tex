@@ -1,8 +1,7 @@
-\usepackage{pubstmt}
 \pubstmtSetDOI{10.1007/978-3-319-68499-4_5}
-\pubstmtSetBookTitle{CONF2017: Proceedings of some conference}
-\pubstmtSetPublisher{Springer}
-
+\pubstmtSetBookTitle{CONF2017: Proceedings of Some Conference}
+\pubstmtSetPublisher{Some Publisher}
+\pubstmtSetYear{2017}
 \usepackage{lipsum}
 
 \begin{document}
@@ -17,6 +16,7 @@ Typically this is done at the beginning after loading the \verb|pubstmt| package
 \pubstmtSetDOI{10.1007/978-3-319-68499-4_5}
 \pubstmtSetBookTitle{CONF2017: Some conference}
 \pubstmtSetPublisher{Springer}
+\pubstmtSetYear{2017}
 \end{verbatim}
 To typesetting the publisher statement, we just need to set the page
 style to use \verb|pubstmt|.
@@ -37,12 +37,12 @@ We now try to reset the publisher statement to some text.
 \begin{verbatim}
 \pubstmtSetStatement{%
   Online at \url{\pubstmtdoi} from \pubstmtpublisher. This is a part of
-  \pubstmtbooktitle.
+  \pubstmtbooktitle{} (\pubstmtyear).
 }
 \end{verbatim}
 \pubstmtSetStatement{%
   Online at \url{\pubstmtdoi} from \pubstmtpublisher. This is a part of
-  \pubstmtbooktitle.
+  \pubstmtbooktitle{} (\pubstmtyear).
 }
  We set the page style to \verb|pubstmt| again.
 \begin{verbatim}
