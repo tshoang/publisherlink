@@ -1,4 +1,4 @@
-default: pubstmt.pdf sample-pubstmt.pdf sample-pubstmt-Springer.pdf sample-pubstmt-LNCS.pdf sample-pubstmt-Elsevier.pdf sample-pubstmt-SCP.pdf clean
+default: pubstmt.pdf sample-pubstmt.pdf sample-pubstmt-Springer.pdf sample-pubstmt-LNCS.pdf sample-pubstmt-Elsevier.pdf sample-pubstmt-SCP.pdf sample-pubstmt-IEEE.pdf clean
 
 pubstmt.pdf: pubstmt.sty
 	pdflatex pubstmt.dtx
@@ -28,6 +28,10 @@ sample-pubstmt-Elsevier.pdf: sample-pubstmt-Elsevier.tex sample-main.tex pubstmt
 sample-pubstmt-SCP.pdf: sample-pubstmt-SCP.tex sample-main.tex pubstmt.sty
 	pdflatex sample-pubstmt-SCP.tex
 	pdflatex sample-pubstmt-SCP.tex
+
+sample-pubstmt-IEEE.pdf: sample-pubstmt-IEEE.tex sample-main.tex pubstmt.sty
+	pdflatex sample-pubstmt-IEEE.tex
+	pdflatex sample-pubstmt-IEEE.tex
 
 clean:
 	rm -f *.aux pubstmt.glo pubstmt.gls pubstmt.idx *.ilg pubstmt.ind *.log *.out *.rel sample-pubstmt.nlo sample-pubstmt.nls *.synctex.gz pubstmt.toc

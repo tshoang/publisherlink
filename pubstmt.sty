@@ -27,7 +27,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}\relax
 \ProvidesPackage{pubstmt}
-    [2017/11/17 v1.0 Package for typesetting information linking to publisher's website]
+    [2017/11/17 v1.2 Package for typesetting information linking to publisher's website]
 
 %%%%% BEGIN Package loading %%%%%
 \RequirePackage{fancyhdr}
@@ -160,6 +160,14 @@
     In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher{} \pubstmt@year. This
     manuscript version is made available under the CC-BY-NC-ND 4.0
     license \url{http://creativecommons.org/licenses/by-nc-nd/4.0/}%
+  }%
+}%
+
+\DeclareOption{IEEE}{%
+  \renewcommand{\pubstmt@statement}{%
+    \vspace{-20ex}%
+    The original publication is available at \url{http://doi.org/\pubstmt@doi}\\%
+    In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher{} \pubstmt@year.%
   }%
 }%
 \DeclareOption{LNCS}{% LNCS series
