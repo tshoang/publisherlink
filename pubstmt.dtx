@@ -29,7 +29,7 @@
 % \iffalse
 %<pubstmt>\NeedsTeXFormat{LaTeX2e}\relax
 %<pubstmt>\ProvidesPackage{pubstmt}
-%<pubstmt>    [2017/11/17 v1.2 Package for typesetting information linking to publisher's website] 
+%<pubstmt>    [2018/11/17 v1.3 Package for typesetting information linking to publisher's website] 
 % 
 %<*driver> 
 \documentclass[a4paper]{ltxdoc}
@@ -45,7 +45,7 @@
 %</driver>
 % \fi
 % 
-% \CheckSum{107}
+% \CheckSum{0}
 % 
 % \CharacterTable
 % {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -67,7 +67,8 @@
 % \changes{v1.0}{2017/11/17}{Initial version}
 % \changes{v1.1}{2017/11/18}{Added package options for publishers and
 % book series, journals}
-% \changes{v1.2}{2017/11/18}{Add IEEE publisher's statement}
+% \changes{v1.2}{2017/11/18}{Added IEEE publisher's statement}
+% \changes{v1.3}{2018/11/18}{Added CC-BY-NC-ND 4.0 statement}
 % 
 % \GetFileInfo{pubstmt.sty}
 % 
@@ -477,6 +478,14 @@
     \vspace{-20ex}%
     The original publication is available at \url{http://doi.org/\pubstmt@doi}\\%
     In \pubstmt@booktitle{} $\copyright$ \pubstmt@publisher{} \pubstmt@year.%
+  }%
+}%
+
+\DeclareOption{CCBYNCND4}{%
+  \renewcommand{\pubstmt@statement}{%
+    \vspace{-20ex}%
+    This manuscript version is made available under the CC-BY-NC-ND 4.0
+    license \url{http://creativecommons.org/licenses/by-nc-nd/4.0/}%
   }%
 }%
 %    \end{macrocode}
